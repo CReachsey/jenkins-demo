@@ -1,17 +1,18 @@
 pipeline {
     // 1. Define the agent as a Docker image (global level)
-    agent {
-        // Use the official Node.js image for the entire pipeline
-        docker { 
-            image 'node:20-alpine' 
-            args '-u 0' // Fixes permission issues common in Docker on Linux/Mac
-        }
-    }
+    // agent {
+    //     // Use the official Node.js image for the entire pipeline
+    //     docker { 
+    //         image 'node:20-alpine' 
+    //         args '-u 0' // Fixes permission issues common in Docker on Linux/Mac
+    //     }
+    // }
 
     stages {
         stage('Check Node Version') {
             steps {
                 // These commands run INSIDE the node:20-alpine container
+                echo 'Checking Node.js and npm versions...'
                 sh 'node --version' 
                 sh 'npm --version' 
             }
