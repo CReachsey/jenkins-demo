@@ -12,6 +12,7 @@ pipeline {
         stage('Check Node Version') {
             steps {
                 // These commands run INSIDE the node:20-alpine container
+                echo 'Checking Node.js and npm versions...'
                 sh 'node --version' 
                 sh 'npm --version' 
             }
