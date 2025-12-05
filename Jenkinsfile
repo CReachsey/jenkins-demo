@@ -1,29 +1,32 @@
 pipeline {
-    agent any // This means any available agent (or the main server) can run the job
+    // 1. Define the agent as a Docker image (global level)
+    agent {
+        // Use the official Node.js image for the entire pipeline
+        docker { 
+            image 'node:20-alpine' 
+            args '-u 0' // Fixes permission issues common in Docker on Linux/Mac
+        }
+    }
 
     stages {
-        // Stage 1: Checkout the code (This step is implicit when using an SCM like Git)
-        stage('Welcome') {
+        stage('Check Node Version') {
             steps {
-                echo 'Haha! Welcome to Jenkins Pipeline!'
-                echo 'Starting the Jenkins CI/CD process..'
-                echo 'Using Jenkins Pipeline Webhook'
-                echo 'Checking out code from Git...'
+                // These commands run INSIDE the node:20-alpine container
+                sh 'node --version' 
+                sh 'npm --version' 
             }
         }
         
-        // Stage 2: Run a simple command
-        stage('Run Shell Command') {
+        stage('Install Dependencies') {
             steps {
-                sh 'echo "Current date and time is $(date)"' // 'sh' runs a shell command
-                sh 'ls -al' // List files to show the workspace content
+                // If you had a package.json, this would install packages
+                sh 'echo "Skipping npm install for this example..."'
             }
         }
         
-        // Stage 3: Post-build actions (like sending notifications)
-        stage('Finish') {
+        stage('Clean Up') {
             steps {
-                echo 'Pipeline completed successfully!'
+                echo 'Build environment is automatically cleaned up as the container exits.'
             }
         }
     }
