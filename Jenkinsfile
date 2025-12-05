@@ -5,6 +5,7 @@ pipeline {
         // Stage 1: Checkout the code (This step is implicit when using an SCM like Git)
         stage('Welcome') {
             steps {
+                echo 'Haha! Welcome to Jenkins Pipeline!'
                 echo 'Starting the Jenkins CI/CD process.'
                 echo 'Using Jenkins Pipeline Webhook'
                 echo 'Checking out code from Git...'
