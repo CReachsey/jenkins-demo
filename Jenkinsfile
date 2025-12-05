@@ -6,6 +6,7 @@ pipeline {
         stage('Welcome') {
             steps {
                 echo 'Starting the Jenkins CI/CD process.'
+                echo 'Using Jenkins Pipeline Webhook'
                 echo 'Checking out code from Git...'
             }
         }
